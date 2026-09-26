@@ -53,6 +53,17 @@ frontend/src/api, stores, types, constants, constructors, components/common, hoo
 - PracticeMode: constants/PracticeMode、types/PracticeMode、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - SymbolCategory: constants/SymbolCategory、types/SymbolCategory、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - MasteryLevel: constants/MasteryLevel、types/MasteryLevel、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- RemedialSessionStatus: constants/RemedialSessionStatus、types/RemedialSessionStatus、statusText、RemedialSessionCard、MistakesPage、ProgressPage 均有引用。
+
+## 错题本整组补练
+
+错题本支持按本周错误原因整组布置补练，三层职责分开承担：
+
+- **排序规则** `frontend/src/utils/remedialOrdering.ts`：只收尚未掌握（非 MASTERED）的点字，按首次出错时间升序，且同一原因连续不超过两题（`MAX_CONSECUTIVE_SAME_REASON`），无法满足时按时间兜底。
+- **会话保存** `frontend/src/stores/RemedialSessionStore.ts` + `frontend/src/api/RemedialSession.ts`：相同原因组合 + 相同补练日期重复布置时沿用原会话；答对后本次移出该字，答错排到组尾；会话持久化到 localStorage。
+- **页面操作** `frontend/src/hooks/useRemedialPractice.ts` + `frontend/src/pages/MistakesPage.tsx`：选择原因与日期、打开会话、提交答案，并把结果同步到答题记录与掌握度（错题本、学习进度页随之更新）。
+
+未到补练日期时会话卡片可见但打不开，并显示可练日期（`RemedialSessionCard` + `resolveRemedialStatus`）。
 
 ## 为什么会牵一发动全身
 

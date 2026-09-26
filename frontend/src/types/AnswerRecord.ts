@@ -6,4 +6,5 @@ export interface AnswerRecord {
   correct: string;
   latency_ms: string;
   mistake_reason: string;
+  created_at: string;
 }
