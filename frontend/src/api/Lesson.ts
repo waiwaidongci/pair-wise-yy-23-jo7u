@@ -1,21 +1,10 @@
-import { mockData } from "../mocks/seedData";
+import { listAll, putRow, STORES } from "../utils/indexedDb";
 import type { Lesson } from "../types/Lesson";
 
-const endpoint = "/api/lesson";
-
 export async function listLesson(): Promise<Lesson[]> {
-  if (typeof fetch !== "undefined" && endpoint.startsWith("/api") && false) {
-    try {
-      const res = await fetch(endpoint);
-      if (res.ok) return await res.json();
-    } catch {
-      // Local mock fallback keeps the UI available during offline review.
-    }
-  }
-  return [...(mockData.lesson as unknown as Lesson[])];
+  return listAll<Lesson>(STORES.lesson);
 }
 
-export async function saveLesson(payload: Lesson) {
-  console.info("save Lesson", payload);
-  return payload;
+export async function saveLesson(payload: Lesson): Promise<Lesson> {
+  return putRow(STORES.lesson, payload);
 }

@@ -1,13 +1,16 @@
 import type { PracticeSession } from "../types/PracticeSession";
 
+/** 练习会话默认对象：未结束（finished_at 为空串）、零分零错 */
 export const createDefaultPracticeSession = (overrides: Partial<PracticeSession> = {}): PracticeSession => ({
-  id: 1 as never,
-  lesson_id: 1 as never,
-  mode: "mode 1" as never,
-  started_at: "2026-06-11T09:00:00Z" as never,
-  finished_at: "2026-06-11T09:00:00Z" as never,
-  score: "LOW" as never,
-  mistake_count: "mistake count 1" as never,
+  id: 0,
+  lesson_id: 0,
+  mode: "MIXED",
+  started_at: new Date().toISOString(),
+  finished_at: "",
+  score: 0,
+  mistake_count: 0,
+  remedial_group_id: null,
+  remedial_reason: null,
   ...overrides
 });
 

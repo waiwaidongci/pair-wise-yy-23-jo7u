@@ -2,7 +2,11 @@ import { create } from "zustand";
 import { listBrailleSymbol } from "../api/BrailleSymbol";
 import type { BrailleSymbol } from "../types/BrailleSymbol";
 
-type State = { rows: BrailleSymbol[]; loading: boolean; load: () => Promise<void> };
+type State = {
+  rows: BrailleSymbol[];
+  loading: boolean;
+  load: () => Promise<void>;
+};
 
 export const useBrailleSymbolStore = create<State>((set) => ({
   rows: [],

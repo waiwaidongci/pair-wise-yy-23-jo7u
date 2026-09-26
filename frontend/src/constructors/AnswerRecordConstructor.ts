@@ -1,13 +1,15 @@
 import type { AnswerRecord } from "../types/AnswerRecord";
 
+/** 答题记录默认对象：答对、无错误原因、当前时间 */
 export const createDefaultAnswerRecord = (overrides: Partial<AnswerRecord> = {}): AnswerRecord => ({
-  id: 1 as never,
-  session_id: 1 as never,
-  symbol_id: 1 as never,
-  user_answer: "user answer 1" as never,
-  correct: "correct 1" as never,
-  latency_ms: "latency ms 1" as never,
-  mistake_reason: "mistake reason 1" as never,
+  id: 0,
+  session_id: 0,
+  symbol_id: 0,
+  user_answer: "",
+  correct: true,
+  latency_ms: 0,
+  mistake_reason: "",
+  answered_at: new Date().toISOString(),
   ...overrides
 });
 
